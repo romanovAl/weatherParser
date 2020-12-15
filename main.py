@@ -1,5 +1,6 @@
 import requests
 import bs4
+import os
 
 url = "https://pogoda1.ru/katalog/sverdlovsk-oblast/temperatura-vody/10-dney/"
 
@@ -40,3 +41,19 @@ else:
         print("\n ----- " + rivers[i] + " ")
         for j in range(0, len(dates)):
             print("Температура на " + dates[j] + " : " + temps[10 * i + j])
+
+    workPath = "C:\\python"
+
+    os.chdir(workPath)
+
+    file = open(os.getcwd() + "\\temp.txt", "w")
+
+    for i in range(0, len(rivers)):
+        file.write("\n ----- " + rivers[i] + " \n ")
+        temp = 0
+        for j in range(0, len(dates)):
+            temp += float(temps[10 * i + j])
+            file.write("Температура на " + dates[j] + " : " + temps[10 * i + j] + "\n")
+
+        mid = temp / len(rivers)
+        file.write("Средняя температура - " + format(mid, ".3f") + "\n")
